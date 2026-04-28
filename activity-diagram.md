@@ -3,94 +3,156 @@
 ## Flow Diagram
 
 ```mermaid
-graph TD
-    %% Swimlane 1: Registered Customer
-    subgraph Customer["👤 Registered Customer"]
-        Start((" ")) --> ClickCheckout["🛒 Click Checkout Button"]
-        ClickCheckout --> EnterInfo["📝 Enter Shipping &<br/>Billing Info"]
-        EnterInfo --> ReviewOrder["✅ Review Order"]
-        ReviewOrder --> ConfirmOrder["🔔 Confirm Purchase"]
+graph LR
+    Start((" "))
+
+    subgraph Customer["👤 REGISTERED CUSTOMER"]
+        A1["Click Checkout<br/>Button"]
+        A2["Enter Shipping &<br/>Billing Address"]
+        A3["Review Order<br/>Details"]
+        A4["Confirm<br/>Purchase"]
+        A5["View Order<br/>Confirmation"]
     end
 
-    %% Swimlane 2: Authentication Service
-    subgraph Auth["🔐 Authentication Service"]
-        CheckAuth{"Is User<br/>Logged In?"}
-        AuthPrompt["⚠️ Redirect to<br/>Login Page"]
-        ReAuth["Verify Credentials"]
+    subgraph Auth["🔐 AUTHENTICATION SERVICE"]
+        B1{"User Logged<br/>In?"}
+        B2["Redirect to<br/>Login Page"]
+        B3["Verify User<br/>Credentials"]
     end
 
-    %% Swimlane 3: System Logic
-    subgraph System["⚙️ System Logic Layer"]
-        ValidateCart["📊 Calculate Total &<br/>Check Stock"]
-        ValidateInfo["✔️ Validate Address<br/>& Payment Info"]
-        RecordOrder["💾 Save Order<br/>to Database"]
+    subgraph System["⚙️ SYSTEM LOGIC"]
+        C1["Validate Address<br/>Information"]
+        C2["Calculate Total &<br/>Check Stock"]
+        C3["Create Order<br/>Record"]
     end
 
-    %% Swimlane 4: Payment Service
-    subgraph Payment["💳 Payment Service"]
-        ProcessTrans["🔄 Execute Payment<br/>Transaction"]
-        VerifyPay{"Payment<br/>Valid?"}
+    subgraph Payment["💳 PAYMENT SERVICE"]
+        D1["Process Payment<br/>Transaction"]
+        D2{"Payment<br/>Valid?"}
+        D3["Authorize<br/>Transaction"]
     end
 
-    %% Swimlane 5: System Response
-    subgraph Response["📧 System Response"]
-        ViewSuccess["✨ Display Success<br/>Message"]
-        SendEmail["📨 Send Order<br/>Confirmation Email"]
-        Stop((" "))
+    subgraph Response["📧 SYSTEM RESPONSE"]
+        E1["Generate Order<br/>Confirmation"]
+        E2["Send Confirmation<br/>Email"]
+        E3["Update Inventory"]
+        End((" "))
     end
 
-    %% Cross-swimlane flow logic
-    ClickCheckout --> CheckAuth
-    CheckAuth -->|"No"| AuthPrompt
-    AuthPrompt --> ReAuth
-    ReAuth -->|"Success"| CheckAuth
-    CheckAuth -->|"Yes"| EnterInfo
+    Start --> A1
+    A1 --> B1
 
-    EnterInfo --> ValidateInfo
-    ReviewOrder --> ValidateCart
-    ConfirmOrder --> ProcessTrans
+    B1 -->|No| B2
+    B2 --> B3
+    B3 -->|Success| B1
 
-    ProcessTrans --> VerifyPay
-    VerifyPay -->|"Invalid"| EnterInfo
-    VerifyPay -->|"Valid"| RecordOrder
+    B1 -->|Yes| A2
+    A2 --> C1
+    C1 -->|Valid| A3
+    C1 -->|Invalid| A2
 
-    RecordOrder --> ViewSuccess
-    ViewSuccess --> SendEmail
-    SendEmail --> Stop
+    A3 --> A4
+    A4 --> C2
+    C2 --> D1
 
-    %% Styling
+    D1 --> D2
+    D2 -->|Invalid| A2
+    D2 -->|Valid| D3
+
+    D3 --> C3
+    C3 --> E1
+    E1 --> E2
+    E2 --> E3
+    E3 --> A5
+    A5 --> End
+
     style Start fill:#1a1a1a,stroke:#333,color:#fff
-    style Stop fill:#1a1a1a,stroke:#333,color:#fff
-    style VerifyPay fill:#fff3cd,stroke:#ff9800,stroke-width:2px
-    style CheckAuth fill:#fff3cd,stroke:#ff9800,stroke-width:2px
-    style ViewSuccess fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style End fill:#1a1a1a,stroke:#333,color:#fff
+    style B1 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style D2 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style C1 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style A5 fill:#d4edda,stroke:#28a745,stroke-width:2px
 ```
 
 ---
 
-## Activity Flow Description
+## Swimlane Description
 
-### Swimlanes & Actors
+### 1. **REGISTERED CUSTOMER** 👤
 
-| Swimlane                   | Role             | Responsibility                              |
-| -------------------------- | ---------------- | ------------------------------------------- |
-| **Registered Customer**    | End User         | Initiates checkout and provides information |
-| **Authentication Service** | External Service | Verifies user login credentials             |
-| **System Logic Layer**     | Backend          | Validates data and manages order processing |
-| **Payment Service**        | External Service | Processes payment transactions              |
-| **System Response**        | Backend          | Sends confirmations and notifications       |
+**Responsible for:** Initiating the checkout process and providing information
 
-### Key Steps
+| Activity                         | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| Click Checkout Button            | User initiates checkout from cart               |
+| Enter Shipping & Billing Address | User inputs delivery and billing information    |
+| Review Order Details             | Customer reviews items, quantities, and pricing |
+| Confirm Purchase                 | Customer confirms and submits the order         |
+| View Order Confirmation          | Displays final confirmation message             |
 
-1. **Customer Initiation** - User clicks checkout button
-2. **Authentication Check** - System verifies user is logged in
-3. **Information Collection** - Customer enters shipping & billing details
-4. **Validation** - System validates cart, stock, and payment information
-5. **Payment Processing** - Payment service processes the transaction
-6. **Order Recording** - Order is saved to the database
-7. **Confirmation** - Success message displayed and email sent
+---
 
-### Decision Points
+### 2. **AUTHENTICATION SERVICE** 🔐
 
-- **Is User Logged In?** - Routes to login if not authenticated
-- **Payment Valid?** - Loops back to information entry if payment fails
+**Responsible for:** Verifying user identity and authorization
+
+| Activity                | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| User Logged In?         | Decision point - checks if user session is valid |
+| Redirect to Login Page  | Routes user to login if not authenticated        |
+| Verify User Credentials | Validates username/password or session token     |
+
+---
+
+### 3. **SYSTEM LOGIC** ⚙️
+
+**Responsible for:** Validating data and processing order logic
+
+| Activity                      | Description                                |
+| ----------------------------- | ------------------------------------------ |
+| Validate Address Information  | Checks address format and completeness     |
+| Calculate Total & Check Stock | Computes total cost and verifies inventory |
+| Create Order Record           | Saves order to database                    |
+
+---
+
+### 4. **PAYMENT SERVICE** 💳
+
+**Responsible for:** Processing financial transactions
+
+| Activity                    | Description                                |
+| --------------------------- | ------------------------------------------ |
+| Process Payment Transaction | Initiates payment processing               |
+| Payment Valid?              | Decision point - validates payment success |
+| Authorize Transaction       | Confirms payment authorization             |
+
+---
+
+### 5. **SYSTEM RESPONSE** 📧
+
+**Responsible for:** Sending confirmations and notifications
+
+| Activity                    | Description                    |
+| --------------------------- | ------------------------------ |
+| Generate Order Confirmation | Creates confirmation document  |
+| Send Confirmation Email     | Emails receipt to customer     |
+| Update Inventory            | Adjusts stock levels in system |
+
+---
+
+## Key Decision Points
+
+🔶 **Is User Logged In?**
+
+- **YES** → Proceed to enter shipping information
+- **NO** → Redirect to login page
+
+🔶 **Is Address Valid?**
+
+- **VALID** → Continue to review order
+- **INVALID** → Return to address entry
+
+🔶 **Payment Valid?**
+
+- **VALID** → Authorize and complete order
+- **INVALID** → Return to information entry for retry
