@@ -1,34 +1,35 @@
 # Online Shopping System - Use Case Diagram
 
 ```mermaid
-usecaseDiagram
-    %% Actors
-    actor "Web Customer" as WC
-    actor "New Customer" as NC
-    actor "Registered Customer" as RC
-    actor "Authentication Service" as AU
-    actor "Payment Service" as PS
+graph TD
+    subgraph Actors["👥 Actors"]
+        WC["Web Customer"]
+        NC["New Customer"]
+        RC["Registered Customer"]
+        AU["🔐 Authentication Service"]
+        PS["💳 Payment Service"]
+    end
 
-    %% Generalization (Inheritance)
-    NC --|> WC
-    RC --|> WC
+    subgraph UseCases["🛒 Online Shopping System"]
+        UC1["View Items"]
+        UC2["Register Account"]
+        UC3["Manage Cart"]
+        UC4["Checkout"]
+    end
 
-    rectangle "Online Shopping System" {
-        usecase "View Items" as UC1
-        usecase "Register Account" as UC2
-        usecase "Manage Cart" as UC3
-        usecase "Checkout" as UC4
-    }
+    %% Customer interactions
+    WC -->|uses| UC1
+    NC -->|uses| UC2
+    RC -->|uses| UC3
+    RC -->|uses| UC4
 
-    %% Customer Interactions
-    WC --> UC1
-    NC --> UC2
-    RC --> UC3
-    RC --> UC4
+    %% Inheritance relationships
+    NC -.->|inherits from| WC
+    RC -.->|inherits from| WC
 
-    %% System Dependencies
-    UC2 ..|> AU : uses
-    UC4 ..|> PS : uses
+    %% External services
+    UC2 -->|integrates| AU
+    UC4 -->|integrates| PS
 ```
 
 ## Description
