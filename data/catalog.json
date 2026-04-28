@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "title": "Classic Leather Oxford",
+    "price": 89.99,
+    "description": "Handcrafted premium leather shoes perfect for formal occasions.",
+    "category": "Footwear",
+    "image": "/images/products/shoes-1.jpg",
+    "rating": { "rate": 4.5, "count": 120 }
+  },
+  {
+    "id": 2,
+    "title": "Minimalist Analog Watch",
+    "price": 125.00,
+    "description": "Sleek stainless steel watch with a genuine leather strap.",
+    "category": "Accessories",
+    "image": "/images/products/watch-1.jpg",
+    "rating": { "rate": 4.8, "count": 85 }
+  },
+  {
+    "id": 3,
+    "title": "Canvas Urban Backpack",
+    "price": 45.50,
+    "description": "Durable water-resistant canvas bag with a 15-inch laptop sleeve.",
+    "category": "Bags",
+    "image": "/images/products/bag-1.jpg",
+    "rating": { "rate": 4.2, "count": 210 }
+  },
+  {
+    "id": 4,
+    "title": "Wireless Noise-Cancelling Headphones",
+    "price": 199.99,
+    "description": "High-fidelity audio with 30-hour battery life and rapid charge.",
+    "category": "Electronics",
+    "image": "/images/products/audio-1.jpg",
+    "rating": { "rate": 4.7, "count": 340 }
+  },
+  {
+    "id": 5,
+    "title": "Cotton Slim-Fit T-Shirt",
+    "price": 19.99,
+    "description": "100% organic cotton tee available in multiple colors.",
+    "category": "Clothing",
+    "image": "/images/products/shirt-1.jpg",
+    "rating": { "rate": 4.1, "count": 500 }
+  },
+  {
+    "id": 6,
+    "title": "Polarized Retro Sunglasses",
+    "price": 35.00,
+    "description": "UV400 protection with a classic stylish frame.",
+    "category": "Accessories",
+    "image": "/images/products/glasses-1.jpg",
+    "rating": { "rate": 4.4, "count": 150 }
+  },
+  {
+    "id": 7,
+    "title": "Mechanical Gaming Keyboard",
+    "price": 75.00,
+    "description": "RGB backlit keys with tactile blue switches for gamers.",
+    "category": "Electronics",
+    "image": "/images/products/tech-1.jpg",
+    "rating": { "rate": 4.6, "count": 95 }
+  },
+  {
+    "id": 8,
+    "title": "Denim Jacket Classic",
+    "price": 65.00,
+    "description": "Rugged denim material with a vintage wash finish.",
+    "category": "Clothing",
+    "image": "/images/products/jacket-1.jpg",
+    "rating": { "rate": 4.3, "count": 180 }
+  },
+  {
+    "id": 9,
+    "title": "Stainless Steel Water Bottle",
+    "price": 24.99,
+    "description": "Insulated bottle that keeps drinks cold for 24 hours.",
+    "category": "Lifestyle",
+    "image": "/images/products/bottle-1.jpg",
+    "rating": { "rate": 4.9, "count": 420 }
+  },
+  {
+    "id": 10,
+    "title": "Ergonomic Office Chair",
+    "price": 150.00,
+    "description": "Breathable mesh back with adjustable lumbar support.",
+    "category": "Furniture",
+    "image": "/images/products/chair-1.jpg",
+    "rating": { "rate": 4.5, "count": 60 }
+  },
+  {
+    "id": 11,
+    "title": "Smart Fitness Tracker",
+    "price": 49.99,
+    "description": "Monitors heart rate, steps, and sleep patterns.",
+    "category": "Electronics",
+    "image": "/images/products/watch-2.jpg",
+    "rating": { "rate": 4.0, "count": 280 }
+  },
+  {
+    "id": 12,
+    "title": "Leather Trifold Wallet",
+    "price": 29.99,
+    "description": "RFID blocking technology in a compact leather design.",
+    "category": "Accessories",
+    "image": "/images/products/wallet-1.jpg",
+    "rating": { "rate": 4.7, "count": 115 }
+  },
+  {
+    "id": 13,
+    "title": "Portable Bluetooth Speaker",
+    "price": 55.00,
+    "description": "Waterproof speaker with deep bass and 12-hour playtime.",
+    "category": "Electronics",
+    "image": "/images/products/audio-2.jpg",
+    "rating": { "rate": 4.4, "count": 190 }
+  },
+  {
+    "id": 14,
+    "title": "Wool Blend Beanie",
+    "price": 15.50,
+    "description": "Warm and stretchy beanie for cold weather.",
+    "category": "Clothing",
+    "image": "/images/products/hat-1.jpg",
+    "rating": { "rate": 4.2, "count": 310 }
+  },
+  {
+    "id": 15,
+    "title": "Ceramic Coffee Mug Set",
+    "price": 32.00,
+    "description": "Set of 4 matte finish mugs, dishwasher safe.",
+    "category": "Kitchen",
+    "image": "/images/products/mug-1.jpg",
+    "rating": { "rate": 4.8, "count": 75 }
+  },
+  {
+    "id": 16,
+    "title": "Yoga Mat Non-Slip",
+    "price": 38.00,
+    "description": "Extra thick padding for joints with eco-friendly TPE.",
+    "category": "Fitness",
+    "image": "/images/products/yoga-1.jpg",
+    "rating": { "rate": 4.6, "count": 230 }
+  },
+  {
+    "id": 17,
+    "title": "Electric Drip Coffee Maker",
+    "price": 45.00,
+    "description": "Programmable timer with a 12-cup glass carafe.",
+    "category": "Kitchen",
+    "image": "/images/products/coffee-1.jpg",
+    "rating": { "rate": 4.3, "count": 140 }
+  },
+  {
+    "id": 18,
+    "title": "Running Performance Shorts",
+    "price": 22.00,
+    "description": "Lightweight, moisture-wicking fabric for active use.",
+    "category": "Clothing",
+    "image": "/images/products/shorts-1.jpg",
+    "rating": { "rate": 4.5, "count": 200 }
+  },
+  {
+    "id": 19,
+    "title": "Dimmable LED Desk Lamp",
+    "price": 39.99,
+    "description": "Touch control with 5 color modes and USB charging port.",
+    "category": "Furniture",
+    "image": "/images/products/lamp-1.jpg",
+    "rating": { "rate": 4.7, "count": 90 }
+  },
+  {
+    "id": 20,
+    "title": "Gourmet Tea Sampler",
+    "price": 18.00,
+    "description": "Collection of 10 organic herbal and green tea blends.",
+    "category": "Food",
+    "image": "/images/products/tea-1.jpg",
+    "rating": { "rate": 4.9, "count": 55 }
+  }
+]
