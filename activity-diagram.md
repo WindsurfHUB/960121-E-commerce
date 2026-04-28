@@ -1,6 +1,82 @@
 # Online Shopping - Checkout Activity Diagram with Swimlanes
 
-## Flow Diagram
+## 1. Activity Diagram (Vertical - Top to Bottom)
+
+```mermaid
+graph TD
+    Start((" "))
+
+    subgraph Customer["👤 REGISTERED CUSTOMER"]
+        A1["Click Checkout<br/>Button"]
+        A2["Enter Shipping &<br/>Billing Address"]
+        A3["Review Order<br/>Details"]
+        A4["Confirm<br/>Purchase"]
+        A5["View Order<br/>Confirmation"]
+    end
+
+    subgraph Auth["🔐 AUTHENTICATION SERVICE"]
+        B1{"User Logged<br/>In?"}
+        B2["Redirect to<br/>Login Page"]
+        B3["Verify User<br/>Credentials"]
+    end
+
+    subgraph System["⚙️ SYSTEM LOGIC"]
+        C1["Validate Address<br/>Information"]
+        C2["Calculate Total &<br/>Check Stock"]
+        C3["Create Order<br/>Record"]
+    end
+
+    subgraph Payment["💳 PAYMENT SERVICE"]
+        D1["Process Payment<br/>Transaction"]
+        D2{"Payment<br/>Valid?"}
+        D3["Authorize<br/>Transaction"]
+    end
+
+    subgraph Response["📧 SYSTEM RESPONSE"]
+        E1["Generate Order<br/>Confirmation"]
+        E2["Send Confirmation<br/>Email"]
+        E3["Update Inventory"]
+        End((" "))
+    end
+
+    Start --> A1
+    A1 --> B1
+
+    B1 -->|No| B2
+    B2 --> B3
+    B3 -->|Success| B1
+
+    B1 -->|Yes| A2
+    A2 --> C1
+    C1 -->|Valid| A3
+    C1 -->|Invalid| A2
+
+    A3 --> A4
+    A4 --> C2
+    C2 --> D1
+
+    D1 --> D2
+    D2 -->|Invalid| A2
+    D2 -->|Valid| D3
+
+    D3 --> C3
+    C3 --> E1
+    E1 --> E2
+    E2 --> E3
+    E3 --> A5
+    A5 --> End
+
+    style Start fill:#1a1a1a,stroke:#333,color:#fff
+    style End fill:#1a1a1a,stroke:#333,color:#fff
+    style B1 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style D2 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style C1 fill:#fff3cd,stroke:#ff9800,stroke-width:2px
+    style A5 fill:#d4edda,stroke:#28a745,stroke-width:2px
+```
+
+---
+
+## 2. Horizontal Swimlane Diagram (Left to Right)
 
 ```mermaid
 graph LR
@@ -76,7 +152,12 @@ graph LR
 
 ---
 
-## Swimlane Description
+## Swimlane Description & Flow Details
+
+### Diagram Overview
+
+- **Diagram 1 (Vertical)**: Shows the complete activity flow from top to bottom - best for understanding the complete sequence
+- **Diagram 2 (Horizontal)**: Shows swimlanes side-by-side - best for identifying which actor is responsible for each activity
 
 ### 1. **REGISTERED CUSTOMER** 👤
 
