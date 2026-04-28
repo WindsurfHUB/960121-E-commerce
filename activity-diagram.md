@@ -1,70 +1,35 @@
 # Online Shopping - Checkout Activity Diagram with Swimlanes
 
-## 1. Activity Diagram (Vertical - Top to Bottom)
+## 1. Activity Diagram (Vertical - Simple Flow)
 
 ```mermaid
 graph TD
-    Start((" "))
+    Start((" ")) --> A1["Click Checkout"]
+    A1 --> B1{"User Logged<br/>In?"}
 
-    subgraph Customer["👤 REGISTERED CUSTOMER"]
-        A1["Click Checkout<br/>Button"]
-        A2["Enter Shipping &<br/>Billing Address"]
-        A3["Review Order<br/>Details"]
-        A4["Confirm<br/>Purchase"]
-        A5["View Order<br/>Confirmation"]
-    end
-
-    subgraph Auth["🔐 AUTHENTICATION SERVICE"]
-        B1{"User Logged<br/>In?"}
-        B2["Redirect to<br/>Login Page"]
-        B3["Verify User<br/>Credentials"]
-    end
-
-    subgraph System["⚙️ SYSTEM LOGIC"]
-        C1["Validate Address<br/>Information"]
-        C2["Calculate Total &<br/>Check Stock"]
-        C3["Create Order<br/>Record"]
-    end
-
-    subgraph Payment["💳 PAYMENT SERVICE"]
-        D1["Process Payment<br/>Transaction"]
-        D2{"Payment<br/>Valid?"}
-        D3["Authorize<br/>Transaction"]
-    end
-
-    subgraph Response["📧 SYSTEM RESPONSE"]
-        E1["Generate Order<br/>Confirmation"]
-        E2["Send Confirmation<br/>Email"]
-        E3["Update Inventory"]
-        End((" "))
-    end
-
-    Start --> A1
-    A1 --> B1
-
-    B1 -->|No| B2
-    B2 --> B3
+    B1 -->|No| B2["Redirect to<br/>Login Page"]
+    B2 --> B3["Verify User<br/>Credentials"]
     B3 -->|Success| B1
 
-    B1 -->|Yes| A2
-    A2 --> C1
-    C1 -->|Valid| A3
+    B1 -->|Yes| A2["Enter Shipping &<br/>Billing Address"]
+    A2 --> C1{"Address<br/>Valid?"}
     C1 -->|Invalid| A2
+    C1 -->|Valid| A3["Review Order<br/>Details"]
 
-    A3 --> A4
-    A4 --> C2
-    C2 --> D1
+    A3 --> A4["Confirm<br/>Purchase"]
+    A4 --> C2["Calculate Total &<br/>Check Stock"]
+    C2 --> D1["Process Payment<br/>Transaction"]
 
-    D1 --> D2
+    D1 --> D2{"Payment<br/>Valid?"}
     D2 -->|Invalid| A2
-    D2 -->|Valid| D3
+    D2 -->|Valid| D3["Authorize<br/>Transaction"]
 
-    D3 --> C3
-    C3 --> E1
-    E1 --> E2
-    E2 --> E3
-    E3 --> A5
-    A5 --> End
+    D3 --> C3["Create Order<br/>Record"]
+    C3 --> E1["Generate Order<br/>Confirmation"]
+    E1 --> E2["Send Confirmation<br/>Email"]
+    E2 --> E3["Update Inventory"]
+    E3 --> A5["View Order<br/>Confirmation"]
+    A5 --> End((" "))
 
     style Start fill:#1a1a1a,stroke:#333,color:#fff
     style End fill:#1a1a1a,stroke:#333,color:#fff
