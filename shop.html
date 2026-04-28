@@ -266,52 +266,118 @@
       </p>
     </footer>
     <script>
-  async function fetchAndRenderProducts() {
-    const container = document.getElementById("product-container");
+  /**
+ * ==========================================
+ * DATA FLOW SEQUENCE EXPLANATION:
+ * ==========================================
+ * 1. DOMContentLoaded triggers requestProducts().
+ * 2. requestProducts() uses fetch() to make an HTTP request to the local file system (or server).
+ * 3. The raw JSON text is received and parsed into a JavaScript Array of Objects.
+ * 4. This Array is passed sequentially as an argument to renderUI(products).
+ * 5. renderUI() iterates over the Array, maps the data to HTML strings, and paints the DOM.
+ */
 
-    try {
-      // FIX 1: Use a forward slash for the path
-      const response = await fetch("data/products.json");
+// ==========================================
+// 1. DATA CONTROLLER (Network Layer)
+// ==========================================
+/**
+ * requestProducts()
+ * Orchestrates the fetching of data from the source.
+ * This matches the 'requestProducts()' step of your sequence diagram.
+ */
+async function requestProducts() {
+  const container = document.getElementById("product-container");
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  try {
+    // Set a temporary loading state while the network request resolves
+    container.innerHTML = '<p class="w-full text-center py-10">Loading catalog...</p>';
 
-      const products = await response.json();
-      container.innerHTML = "";
+    // SEQUENCE STEP: fetch(path-to-json-file)
+    // The browser initiates an HTTP GET request to retrieve the JSON file.
+    // Future Full-Stack Step: Change this path to "/api/products" when Express is ready.
+    const response = await fetch("data/products.json");
 
-      products.forEach((product) => {
-        // FIX 2: Inject HTML that matches your Tailwind template structure
-        const productHTML = `
-          <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" data-id="${product.id}">
-            <a href="#">
-              <img class="hover:grow hover:shadow-lg h-64 w-full object-cover" src="${product.image}" alt="${product.title}">
-              <div class="pt-3 flex items-center justify-between">
-                <p class="">${product.title}</p>
-                <svg class="h-6 w-6 fill-current text-gray-500 hover:text-black cursor-pointer" onclick="event.preventDefault(); addToCart(${product.id})" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12,4.595c-1.104-1.006-2.512-1.558-3.996-1.558c-1.578,0-3.072,0.623-4.213,1.758c-2.353,2.363-2.352,6.059,0.002,8.412 l7.332,7.332c0.17,0.299,0.498,0.492,0.875,0.492c0.322,0,0.609-0.163,0.792-0.409l7.415-7.415 c2.354-2.354,2.354-6.049-0.002-8.416c-1.137-1.131-2.631-1.754-4.209-1.754C14.513,3.037,13.104,3.589,12,4.595z M18.791,6.205 c1.563,1.571,1.564,4.025,0.002,5.588L12,18.586l-6.793-6.793C3.645,10.23,3.646,7.776,5.205,6.209 c0.76-0.756,1.754-1.172,2.799-1.172s2.035,0.416,2.789,1.17l0.5,0.5c0.391,0.391,1.023,0.391,1.414,0l0.5-0.5 C14.719,4.698,17.281,4.702,18.791,6.205z"/>
-                </svg>
-              </div>
-              <p class="text-sm text-gray-500">${product.category}</p>
-              <p class="pt-1 text-gray-900">$${product.price.toFixed(2)}</p>
-            </a>
-          </div>
-        `;
-
-        container.insertAdjacentHTML("beforeend", productHTML);
-      });
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
-      container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products. Ensure you are running a local server (like Live Server).</div>`;
+    // Check for HTTP errors (e.g., 404 Not Found, 500 Server Error)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  }
 
-  // Define a placeholder addToCart function so it doesn't throw errors when clicked
-  function addToCart(id) {
-    console.log("Added product " + id + " to cart!");
-  }
+    // Parse the raw JSON string payload into a usable JavaScript Array
+    const products = await response.json();
 
-  document.addEventListener("DOMContentLoaded", fetchAndRenderProducts);
+    // SEQUENCE STEP: Trigger UI Render
+    // Hand the parsed data off to the presentation layer
+    renderUI(products);
+
+  } catch (error) {
+    // Catch and log any network or parsing failures
+    console.error("Data Fetch Sequence Failed:", error);
+    container.innerHTML = `<div class="w-full text-center text-red-500 py-10">
+      Failed to load products. Ensure your local server (e.g., Live Server) is running.
+    </div>`;
+  }
+}
+
+// ==========================================
+// 2. PRESENTATION LAYER (View)
+// ==========================================
+/**
+ * renderUI(data)
+ * Handles all DOM manipulation. It does not know WHERE the data came from, 
+ * only HOW to display it. Matches the 'renderUI()' step of the diagram.
+ * 
+ * @param {Array} products - The array of product objects retrieved from the fetch layer.
+ */
+function renderUI(products) {
+  const container = document.getElementById("product-container");
+  
+  // Clear the "Loading..." message injected by requestProducts()
+  container.innerHTML = "";
+
+  // Iterate over the data array. For each product object, generate an HTML block.
+  products.forEach((product) => {
+    
+    // Using Template Literals (` `) to inject object properties directly into the Tailwind HTML
+    const productHTML = `
+      <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" data-id="${product.id}">
+        <a href="#">
+          <img class="hover:grow hover:shadow-lg h-64 w-full object-cover" src="${product.image}" alt="${product.title}">
+          
+          <div class="pt-3 flex items-center justify-between">
+            <p class="">${product.title}</p>
+            
+            <!-- addToCart() is triggered here, passing the specific product.id -->
+            <!-- event.preventDefault() stops the <a> tag from scrolling the page to the top -->
+            <svg class="h-6 w-6 fill-current text-gray-500 hover:text-black cursor-pointer" 
+                 onclick="event.preventDefault(); addToCart(${product.id})" 
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12,4.595c-1.104-1.006-2.512-1.558-3.996-1.558c-1.578,0-3.072,0.623-4.213,1.758c-2.353,2.363-2.352,6.059,0.002,8.412 l7.332,7.332c0.17,0.299,0.498,0.492,0.875,0.492c0.322,0,0.609-0.163,0.792-0.409l7.415-7.415 c2.354-2.354,2.354-6.049-0.002-8.416c-1.137-1.131-2.631-1.754-4.209-1.754C14.513,3.037,13.104,3.589,12,4.595z M18.791,6.205 c1.563,1.571,1.564,4.025,0.002,5.588L12,18.586l-6.793-6.793C3.645,10.23,3.646,7.776,5.205,6.209 c0.76-0.756,1.754-1.172,2.799-1.172s2.035,0.416,2.789,1.17l0.5,0.5c0.391,0.391,1.023,0.391,1.414,0l0.5-0.5 C14.719,4.698,17.281,4.702,18.791,6.205z"/>
+            </svg>
+          </div>
+          
+          <p class="text-sm text-gray-500">${product.category}</p>
+          <p class="pt-1 text-gray-900">$${product.price.toFixed(2)}</p>
+        </a>
+      </div>
+    `;
+
+    // Inject the constructed HTML block into the parent container
+    container.insertAdjacentHTML("beforeend", productHTML);
+  });
+}
+
+// ==========================================
+// 3. EVENT LISTENERS & UTILITIES
+// ==========================================
+
+// Global function stub for the cart interactions
+function addToCart(id) {
+  console.log("Staging product ID: " + id + " for the cart.");
+  // Next Phase: Send a POST request to Express to write this interaction to the SQLite DB
+}
+
+// Initialize the sequence as soon as the browser has constructed the raw HTML tree
+document.addEventListener("DOMContentLoaded", requestProducts);
 </script>
   </body>
 </html>
