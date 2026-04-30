@@ -129,7 +129,7 @@
           </a>
 
           <a
-            class="pl-3 inline-block no-underline hover:text-black"
+            class="pl-3 inline-block no-underline hover:text-black relative"
             href="cart.html"
           >
             <svg
@@ -145,6 +145,12 @@
               <circle cx="10.5" cy="18.5" r="1.5" />
               <circle cx="17.5" cy="18.5" r="1.5" />
             </svg>
+            <span
+              id="cart-badge"
+              class="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden"
+            >
+              0
+            </span>
           </a>
         </div>
       </div>
@@ -200,40 +206,52 @@
         </nav>
 
         <!-- Store Controls: Search & Filter (The Producers) -->
-        <div class="w-full container mx-auto px-6 py-4 flex flex-col md:flex-row gap-4 justify-between items-center bg-white mb-6">
-            
-            <!-- Search Bar -->
-            <div class="w-full md:w-1/2 relative">
-                <input 
-                    type="text" 
-                    id="search-box" 
-                    placeholder="Search products..." 
-                    class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 bg-gray-50"
-                >
-                <svg class="h-5 w-5 text-gray-400 absolute right-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </div>
+        <div
+          class="w-full container mx-auto px-6 py-4 flex flex-col md:flex-row gap-4 justify-between items-center bg-white mb-6"
+        >
+          <!-- Search Bar -->
+          <div class="w-full md:w-1/2 relative">
+            <input
+              type="text"
+              id="search-box"
+              placeholder="Search products..."
+              class="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 bg-gray-50"
+            />
+            <svg
+              class="h-5 w-5 text-gray-400 absolute right-3 top-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
 
-            <!-- Category Dropdown -->
-            <div class="w-full md:w-1/3">
-                <select 
-                    id="category-filter" 
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 bg-gray-50"
-                >
-                    <option value="All">All Categories</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Bags">Bags</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Kitchen">Kitchen</option>
-                    <option value="Fitness">Fitness</option>
-                    <option value="Food">Food</option>
-                </select>
-            </div>
+          <!-- Category Dropdown -->
+          <div class="w-full md:w-1/3">
+            <select
+              id="category-filter"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 bg-gray-50"
+            >
+              <option value="All">All Categories</option>
+              <option value="Footwear">Footwear</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Bags">Bags</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Kitchen">Kitchen</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Food">Food</option>
+            </select>
+          </div>
         </div>
 
         <div id="product-container" class="w-full flex flex-wrap"></div>
@@ -298,81 +316,89 @@
       </p>
     </footer>
     <script>
-        // 1. STATE MANAGEMENT (The Source of Truth)
-        let globalCatalog = []; 
+      // 1. STATE MANAGEMENT (The Source of Truth)
+      let globalCatalog = [];
 
-        // 2. NETWORK CONTROLLER
-        async function requestProducts() {
-            const container = document.getElementById("product-container");
-            try {
-                container.innerHTML = '<p class="w-full text-center py-10">Loading catalog...</p>';
-                const response = await fetch("data/products.json");
+      // 2. NETWORK CONTROLLER
+      async function requestProducts() {
+        const container = document.getElementById("product-container");
+        try {
+          container.innerHTML =
+            '<p class="w-full text-center py-10">Loading catalog...</p>';
+          const response = await fetch("data/products.json");
 
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
 
-                globalCatalog = await response.json();
-                renderUI(globalCatalog);
-                initializeInteractions(); 
-
-            } catch (error) {
-                console.error("Fetch Failed:", error);
-                container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products.</div>`;
-            }
+          globalCatalog = await response.json();
+          renderUI(globalCatalog);
+          initializeInteractions();
+        } catch (error) {
+          console.error("Fetch Failed:", error);
+          container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products.</div>`;
         }
+      }
 
-        // 3. EVENT-DRIVEN ARCHITECTURE (The Triggers)
-        function initializeInteractions() {
-            const searchInput = document.getElementById("search-box");
-            const categorySelect = document.getElementById("category-filter");
+      // 3. EVENT-DRIVEN ARCHITECTURE (The Triggers)
+      function initializeInteractions() {
+        const searchInput = document.getElementById("search-box");
+        const categorySelect = document.getElementById("category-filter");
 
-            searchInput.addEventListener("input", handleUserAction);
-            categorySelect.addEventListener("change", handleUserAction);
-        }
+        searchInput.addEventListener("input", handleUserAction);
+        categorySelect.addEventListener("change", handleUserAction);
+      }
 
-        // 4. BUSINESS LOGIC (The Consumer)
-        function handleUserAction() {
-            const searchTerm = document.getElementById("search-box").value;
-            const category = document.getElementById("category-filter").value;
+      // 4. BUSINESS LOGIC (The Consumer)
+      function handleUserAction() {
+        const searchTerm = document.getElementById("search-box").value;
+        const category = document.getElementById("category-filter").value;
 
-            const filteredData = filterProducts(globalCatalog, searchTerm, category);
+        const filteredData = filterProducts(
+          globalCatalog,
+          searchTerm,
+          category,
+        );
 
-            if (filteredData.length === 0) {
-                document.getElementById("product-container").innerHTML = `
+        if (filteredData.length === 0) {
+          document.getElementById("product-container").innerHTML = `
                 <div class="w-full text-center py-20">
                     <h3 class="text-xl text-gray-700 font-bold">No results found</h3>
                     <p class="text-gray-500 mt-2">Try adjusting your search or category filter.</p>
                 </div>
                 `;
-                return;
-            }
-
-            renderUI(filteredData);
+          return;
         }
 
-        // 5. HIGH-ORDER FUNCTION (Pure Logic)
-        function filterProducts(products, searchTerm, category) {
-            const lowerCaseSearch = searchTerm.toLowerCase().trim();
-            return products.filter(product => {
-                const matchesCategory = category === 'All' || product.category === category;
-                const matchesSearch = product.title.toLowerCase().includes(lowerCaseSearch);
-                return matchesCategory && matchesSearch;
-            });
-        }
+        renderUI(filteredData);
+      }
 
-        // 6. PRESENTATION LAYER
-        function renderUI(products) {
-            const container = document.getElementById("product-container");
-            container.innerHTML = "";
+      // 5. HIGH-ORDER FUNCTION (Pure Logic)
+      function filterProducts(products, searchTerm, category) {
+        const lowerCaseSearch = searchTerm.toLowerCase().trim();
+        return products.filter((product) => {
+          const matchesCategory =
+            category === "All" || product.category === category;
+          const matchesSearch = product.title
+            .toLowerCase()
+            .includes(lowerCaseSearch);
+          return matchesCategory && matchesSearch;
+        });
+      }
 
-            products.forEach((product) => {
-                const productHTML = `
+      // 6. PRESENTATION LAYER
+      function renderUI(products) {
+        const container = document.getElementById("product-container");
+        container.innerHTML = "";
+
+        products.forEach((product) => {
+          const productHTML = `
                 <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" data-id="${product.id}">
                     <a href="#">
                     <img class="hover:grow hover:shadow-lg h-64 w-full object-cover" src="${product.image}" alt="${product.title}">
                     <div class="pt-3 flex items-center justify-between">
                         <p class="">${product.title}</p>
-                        <svg class="h-6 w-6 fill-current text-gray-500 hover:text-black cursor-pointer" onclick="event.preventDefault(); addToCart(${product.id})" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12,4.595c-1.104-1.006-2.512-1.558-3.996-1.558c-1.578,0-3.072,0.623-4.213,1.758c-2.353,2.363-2.352,6.059,0.002,8.412 l7.332,7.332c0.17,0.299,0.498,0.492,0.875,0.492c0.322,0,0.609-0.163,0.792-0.409l7.415-7.415 c2.354-2.354,2.354-6.049-0.002-8.416c-1.137-1.131-2.631-1.754-4.209-1.754C14.513,3.037,13.104,3.589,12,4.595z M18.791,6.205 c1.563,1.571,1.564,4.025,0.002,5.588L12,18.586l-6.793-6.793C3.645,10.23,3.646,7.776,5.205,6.209 c0.76-0.756,1.754-1.172,2.799-1.172s2.035,0.416,2.789,1.17l0.5,0.5c0.391,0.391,1.023,0.391,1.414,0l0.5-0.5 C14.719,4.698,17.281,4.702,18.791,6.205z"/>
+                        <svg class="add-to-cart h-6 w-6 text-gray-500 hover:text-black cursor-pointer" data-id="${product.id}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
                     </div>
                     <p class="text-sm text-gray-500">${product.category}</p>
@@ -380,15 +406,12 @@
                     </a>
                 </div>
                 `;
-                container.insertAdjacentHTML("beforeend", productHTML);
-            });
-        }
+          container.insertAdjacentHTML("beforeend", productHTML);
+        });
+      }
 
-        function addToCart(id) { 
-            console.log("Added to cart: " + id); 
-        }
-
-        document.addEventListener("DOMContentLoaded", requestProducts);
+      document.addEventListener("DOMContentLoaded", requestProducts);
     </script>
+    <script src="cart.js"></script>
   </body>
 </html>

@@ -103,7 +103,7 @@
           </a>
         </div>
 
-        <div class="order-2 md:order-3 flex items-center" id="nav-content">
+       <div class="order-2 md:order-3 flex items-center" id="nav-content">
           <a class="inline-block no-underline hover:text-black" href="#">
             <svg
               class="fill-current hover:text-black"
@@ -120,7 +120,7 @@
           </a>
 
           <a
-            class="pl-3 inline-block no-underline hover:text-black"
+            class="pl-3 inline-block no-underline hover:text-black relative"
             href="cart.html"
           >
             <svg
@@ -136,6 +136,12 @@
               <circle cx="10.5" cy="18.5" r="1.5" />
               <circle cx="17.5" cy="18.5" r="1.5" />
             </svg>
+            <span
+              id="cart-badge"
+              class="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden"
+            >
+              0
+            </span>
           </a>
         </div>
       </div>
@@ -147,64 +153,8 @@
 
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Cart Items -->
-          <div class="md:w-2/3">
-            <div class="bg-gray-50 p-6 mb-6">
-              <div
-                class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4"
-              >
-                <div class="flex-1">
-                  <p class="font-bold text-gray-800">Product Name</p>
-                  <p class="text-sm text-gray-600">SKU: PROD-001</p>
-                </div>
-                <div class="flex items-center gap-4">
-                  <p class="text-gray-800 font-semibold">£9.99</p>
-                  <p class="text-gray-600">Qty: 1</p>
-                  <a href="#" class="text-gray-500 hover:text-red-500">
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-gray-50 p-6 mb-6">
-              <div
-                class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4"
-              >
-                <div class="flex-1">
-                  <p class="font-bold text-gray-800">Product Name</p>
-                  <p class="text-sm text-gray-600">SKU: PROD-002</p>
-                </div>
-                <div class="flex items-center gap-4">
-                  <p class="text-gray-800 font-semibold">£14.99</p>
-                  <p class="text-gray-600">Qty: 2</p>
-                  <a href="#" class="text-gray-500 hover:text-red-500">
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <a
-              href="shop.html"
-              class="text-blue-600 hover:text-blue-800 underline mt-4"
-              >Continue Shopping</a
-            >
+          <div class="md:w-2/3" id="cart-items-container">
+            <!-- JavaScript will inject the products here -->
           </div>
 
           <!-- Cart Summary -->
@@ -218,7 +168,7 @@
                 class="flex justify-between mb-3 pb-3 border-b border-gray-200"
               >
                 <p class="text-gray-600">Subtotal</p>
-                <p class="text-gray-800 font-semibold">£39.97</p>
+                <p class="text-gray-800 font-semibold" id="cart-subtotal">£0.00</p>
               </div>
 
               <div
@@ -232,12 +182,12 @@
                 class="flex justify-between mb-6 pb-6 border-b border-gray-200"
               >
                 <p class="text-gray-600">Tax</p>
-                <p class="text-gray-800 font-semibold">£7.99</p>
+                <p class="text-gray-800 font-semibold" id="cart-tax">£0.00</p>
               </div>
 
               <div class="flex justify-between mb-6">
                 <p class="text-lg font-bold text-gray-800">Total</p>
-                <p class="text-lg font-bold text-gray-800">£52.96</p>
+                <p class="text-lg font-bold text-gray-800" id="cart-total">£0.00</p>
               </div>
 
               <a
@@ -323,5 +273,7 @@
         >
       </p>
     </footer>
+
+    <script src="cart.js"></script>
   </body>
 </html>

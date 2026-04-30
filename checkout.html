@@ -120,7 +120,7 @@
           </a>
 
           <a
-            class="pl-3 inline-block no-underline hover:text-black"
+            class="pl-3 inline-block no-underline hover:text-black relative"
             href="cart.html"
           >
             <svg
@@ -136,6 +136,12 @@
               <circle cx="10.5" cy="18.5" r="1.5" />
               <circle cx="17.5" cy="18.5" r="1.5" />
             </svg>
+            <span
+              id="cart-badge"
+              class="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden"
+            >
+              0
+            </span>
           </a>
         </div>
       </div>
@@ -452,5 +458,6 @@
         >
       </p>
     </footer>
+    <script src="cart.js"></script>
   </body>
 </html>
