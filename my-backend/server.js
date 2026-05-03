@@ -1,24 +1,23 @@
-// 1. Import Express
 const express = require('express');
-
-// 2. Initialize the app
+const cors = require('cors'); // Imports CORS to allow frontend requests
 const app = express();
 
-// 3. Define the Port
+const productRoutes = require('./src/routes/products');
 const PORT = 8888;
 
-// 4. Create a test GET route (The Contract)
-app.get('/api/test', (req, res) => {
-    console.log("A request hit the server!");
-    
-    // The server responds with a JSON object
-    res.status(200).json({ 
-        message: "Hello from the Backend! Express is working perfectly.",
-        status: "Success"
-    });
+// Middleware
+app.use(cors()); // Enables Cross-Origin Resource Sharing
+app.use(express.json()); // Parses incoming JSON requests
+
+// Mounts the modular product routes to the base '/api/products' path
+app.use('/api/products', productRoutes);
+
+// Health Check Route
+app.get('/', (req, res) => {
+    res.status(200).send("Nordic Shop API is Running!");
 });
 
-// 5. Start the server (Listen for requests)
+// Starts the server
 app.listen(PORT, () => {
     console.log(`Server is successfully running on http://localhost:${PORT}`);
 });
