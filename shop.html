@@ -316,79 +316,60 @@
       </p>
     </footer>
     <script>
-      // 1. STATE MANAGEMENT (The Source of Truth)
       let globalCatalog = [];
 
-      // 2. NETWORK CONTROLLER
-      async function requestProducts() {
+      // 1. NETWORK CONTROLLER: Sends the Request to the Express Server
+      async function requestProducts(category = "All") {
         const container = document.getElementById("product-container");
         try {
-          container.innerHTML =
-            '<p class="w-full text-center py-10">Loading catalog...</p>';
-          const response = await fetch("data/products.json");
+          container.innerHTML = '<p class="w-full text-center py-10">Loading catalog...</p>';
 
-          if (!response.ok)
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          // Builds the URL with the query parameter if a category is selected
+          let url = "http://localhost:8888/api/products";
+          if (category !== "All") {
+              url += `?category=${category}`; 
+          }
 
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+          // Receives the Response Package
           globalCatalog = await response.json();
           renderUI(globalCatalog);
-          initializeInteractions();
+          
         } catch (error) {
           console.error("Fetch Failed:", error);
-          container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products.</div>`;
+          container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products. Ensure backend is running!</div>`;
         }
       }
 
-      // 3. EVENT-DRIVEN ARCHITECTURE (The Triggers)
+      // 2. EVENT-DRIVEN ARCHITECTURE (The Trigger)
       function initializeInteractions() {
         const searchInput = document.getElementById("search-box");
         const categorySelect = document.getElementById("category-filter");
 
-        searchInput.addEventListener("input", handleUserAction);
-        categorySelect.addEventListener("change", handleUserAction);
-      }
+        // TRIGGER: User selects a category. Browser requests new data from server.
+        categorySelect.addEventListener("change", (e) => {
+            requestProducts(e.target.value); 
+        });
 
-      // 4. BUSINESS LOGIC (The Consumer)
-      function handleUserAction() {
-        const searchTerm = document.getElementById("search-box").value;
-        const category = document.getElementById("category-filter").value;
-
-        const filteredData = filterProducts(
-          globalCatalog,
-          searchTerm,
-          category,
-        );
-
-        if (filteredData.length === 0) {
-          document.getElementById("product-container").innerHTML = `
-                <div class="w-full text-center py-20">
-                    <h3 class="text-xl text-gray-700 font-bold">No results found</h3>
-                    <p class="text-gray-500 mt-2">Try adjusting your search or category filter.</p>
-                </div>
-                `;
-          return;
-        }
-
-        renderUI(filteredData);
-      }
-
-      // 5. HIGH-ORDER FUNCTION (Pure Logic)
-      function filterProducts(products, searchTerm, category) {
-        const lowerCaseSearch = searchTerm.toLowerCase().trim();
-        return products.filter((product) => {
-          const matchesCategory =
-            category === "All" || product.category === category;
-          const matchesSearch = product.title
-            .toLowerCase()
-            .includes(lowerCaseSearch);
-          return matchesCategory && matchesSearch;
+        // Local search filter
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const filtered = globalCatalog.filter(p => p.title.toLowerCase().includes(searchTerm));
+            renderUI(filtered);
         });
       }
 
-      // 6. PRESENTATION LAYER
+      // 3. PRESENTATION LAYER
       function renderUI(products) {
         const container = document.getElementById("product-container");
         container.innerHTML = "";
+
+        if (products.length === 0) {
+            container.innerHTML = '<div class="w-full text-center py-20"><h3 class="text-xl text-gray-700 font-bold">No results found</h3></div>';
+            return;
+        }
 
         products.forEach((product) => {
           const productHTML = `
@@ -402,7 +383,7 @@
                         </svg>
                     </div>
                     <p class="text-sm text-gray-500">${product.category}</p>
-                    <p class="pt-1 text-gray-900">$${product.price.toFixed(2)}</p>
+                    <p class="pt-1 text-gray-900">£${product.price.toFixed(2)}</p>
                     </a>
                 </div>
                 `;
@@ -410,7 +391,10 @@
         });
       }
 
-      document.addEventListener("DOMContentLoaded", requestProducts);
+      document.addEventListener("DOMContentLoaded", () => {
+          initializeInteractions();
+          requestProducts(); 
+      });
     </script>
     <script src="cart.js"></script>
   </body>

@@ -1,1 +1,25 @@
+# Dependency directories
+node_modules/
+
+# Environment variables (Always ignore this for security!)
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Optional: Ignore your local database if you don't want to push test data to GitHub
+# data/products.json
 LICENSE
