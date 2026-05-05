@@ -1,19 +1,21 @@
 const express = require("express");
 const cors = require("cors"); // Imports CORS to allow frontend requests
 const app = express();
-app.use(express.json());
 
 const productRoutes = require("./src/routes/products");
-const PORT = 8888;
 const authRoutes = require('./src/routes/auth');
+const checkoutRoutes = require('./src/routes/checkout'); // Import the new checkout route
+
+const PORT = 8888;
 
 // Middleware
 app.use(cors()); // Enables Cross-Origin Resource Sharing
 app.use(express.json()); // Parses incoming JSON requests
 
-// Mounts the modular product routes to the base '/api/products' path
+// Mounts the modular routes
 app.use("/api/products", productRoutes);
 app.use('/', authRoutes);
+app.use('/api/checkout', checkoutRoutes); // Mount the checkout route
 
 // Health Check Route
 app.get("/", (req, res) => {
