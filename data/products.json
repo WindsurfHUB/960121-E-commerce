@@ -11,7 +11,7 @@
   {
     "id": 2,
     "title": "Minimalist Analog Watch",
-    "price": 125.00,
+    "price": 125.0,
     "description": "Sleek stainless steel watch with a genuine leather strap.",
     "category": "Accessories",
     "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "title": "Canvas Urban Backpack",
-    "price": 45.50,
+    "price": 45.5,
     "description": "Durable water-resistant canvas bag with a 15-inch laptop sleeve.",
     "category": "Bags",
     "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80",
@@ -47,7 +47,7 @@
   {
     "id": 6,
     "title": "Polarized Retro Sunglasses",
-    "price": 35.00,
+    "price": 35.0,
     "description": "UV400 protection with a classic stylish frame.",
     "category": "Accessories",
     "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80",
@@ -56,7 +56,7 @@
   {
     "id": 7,
     "title": "Mechanical Gaming Keyboard",
-    "price": 75.00,
+    "price": 75.0,
     "description": "RGB backlit keys with tactile blue switches for gamers.",
     "category": "Electronics",
     "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=400&q=80",
@@ -65,7 +65,7 @@
   {
     "id": 8,
     "title": "Denim Jacket Classic",
-    "price": 65.00,
+    "price": 65.0,
     "description": "Rugged denim material with a vintage wash finish.",
     "category": "Clothing",
     "image": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&w=400&q=80",
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "title": "Ergonomic Office Chair",
-    "price": 150.00,
+    "price": 150.0,
     "description": "Breathable mesh back with adjustable lumbar support.",
     "category": "Furniture",
     "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=400&q=80",
@@ -110,7 +110,7 @@
   {
     "id": 13,
     "title": "Portable Bluetooth Speaker",
-    "price": 55.00,
+    "price": 55.0,
     "description": "Waterproof speaker with deep bass and 12-hour playtime.",
     "category": "Electronics",
     "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=400&q=80",
@@ -119,7 +119,7 @@
   {
     "id": 14,
     "title": "Wool Blend Beanie",
-    "price": 15.50,
+    "price": 15.5,
     "description": "Warm and stretchy beanie for cold weather.",
     "category": "Clothing",
     "image": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=400&q=80",
@@ -128,7 +128,7 @@
   {
     "id": 15,
     "title": "Ceramic Coffee Mug Set",
-    "price": 32.00,
+    "price": 32.0,
     "description": "Set of 4 matte finish mugs, dishwasher safe.",
     "category": "Kitchen",
     "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=400&q=80",
@@ -137,7 +137,7 @@
   {
     "id": 16,
     "title": "Yoga Mat Non-Slip",
-    "price": 38.00,
+    "price": 38.0,
     "description": "Extra thick padding for joints with eco-friendly TPE.",
     "category": "Fitness",
     "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=400&q=80",
@@ -146,7 +146,7 @@
   {
     "id": 17,
     "title": "Electric Drip Coffee Maker",
-    "price": 45.00,
+    "price": 45.0,
     "description": "Programmable timer with a 12-cup glass carafe.",
     "category": "Kitchen",
     "image": "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=400&q=80",
@@ -155,7 +155,7 @@
   {
     "id": 18,
     "title": "Running Performance Shorts",
-    "price": 22.00,
+    "price": 22.0,
     "description": "Lightweight, moisture-wicking fabric for active use.",
     "category": "Clothing",
     "image": "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=400&q=80",
@@ -173,7 +173,7 @@
   {
     "id": 20,
     "title": "Gourmet Tea Sampler",
-    "price": 18.00,
+    "price": 18.0,
     "description": "Collection of 10 organic herbal and green tea blends.",
     "category": "Food",
     "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80",

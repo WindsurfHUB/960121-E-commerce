@@ -1,0 +1,62 @@
+[
+  {
+    "firstName": "Alice",
+    "username": "alice@nordicshop.com",
+    "password": "$2b$10$InG0LSv8CUI7gbUXO93P5Ocu/3poG4Tj5r53pK60zGDGAealginrm",
+    "dateOfRegistration": "2026-05-05T04:58:13.854Z"
+  },
+  {
+    "firstName": "Bob",
+    "username": "bob@nordicshop.com",
+    "password": "$2b$10$BcIPMgff.ULwp5oWmy6uJuvqF3e8Zk2fzSTzYN7H733JmjL4.awwu",
+    "dateOfRegistration": "2026-05-05T04:58:13.909Z"
+  },
+  {
+    "firstName": "Charlie",
+    "username": "charlie@nordicshop.com",
+    "password": "$2b$10$I1fDHoO46902tuFoPeZzu.O.C0QX8fBKZsFg8FLyWsskcEtr7Xe02",
+    "dateOfRegistration": "2026-05-05T04:58:13.963Z"
+  },
+  {
+    "firstName": "Diana",
+    "username": "diana@nordicshop.com",
+    "password": "$2b$10$NHJTOpT9TuILzwJ5Ssppu.Lv1WD/wbY7uliR/XT0KJ3Ax35ENRiuq",
+    "dateOfRegistration": "2026-05-05T04:58:14.018Z"
+  },
+  {
+    "firstName": "Evan",
+    "username": "evan@nordicshop.com",
+    "password": "$2b$10$s47amnN5m5LzT1H1dB5PG.Nb0A3uy9/wRy7HaFG1iOFLzMdKlB002",
+    "dateOfRegistration": "2026-05-05T04:58:14.071Z"
+  },
+  {
+    "firstName": "Fiona",
+    "username": "fiona@nordicshop.com",
+    "password": "$2b$10$Q8pzy5hxbSpj2RKR3HXKaObb7xcBC/9bfkwWzT2r0p9aKTWq0cmjK",
+    "dateOfRegistration": "2026-05-05T04:58:14.126Z"
+  },
+  {
+    "firstName": "George",
+    "username": "george@nordicshop.com",
+    "password": "$2b$10$fWuD.eFsdWBZ1k4IYKR8T.U/TQ1x5NRuzCCA6gMi8BcNONO4HhTmu",
+    "dateOfRegistration": "2026-05-05T04:58:14.180Z"
+  },
+  {
+    "firstName": "Hannah",
+    "username": "hannah@nordicshop.com",
+    "password": "$2b$10$KsQq.fgGctuZbsc/dgACDesuJ0z6i54rNpiCj/mh.hQJxaM2iF/L6",
+    "dateOfRegistration": "2026-05-05T04:58:14.234Z"
+  },
+  {
+    "firstName": "Ian",
+    "username": "ian@nordicshop.com",
+    "password": "$2b$10$F2gG0jR8214lfgvwGKc9me5vLYOekVJx/glZtuVOy6EfXRAiHB6gu",
+    "dateOfRegistration": "2026-05-05T04:58:14.288Z"
+  },
+  {
+    "firstName": "Julia",
+    "username": "julia@nordicshop.com",
+    "password": "$2b$10$lJ.IW1dw1XaL8qrlJeleoOxFGogJ13ntm4QVomX8OcwJanzvzoOiK",
+    "dateOfRegistration": "2026-05-05T04:58:14.342Z"
+  }
+]

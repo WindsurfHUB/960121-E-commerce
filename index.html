@@ -159,7 +159,7 @@
         </div>
 
         <div class="order-2 md:order-3 flex items-center" id="nav-content">
-          <a class="inline-block no-underline hover:text-black" href="#">
+          <a class="inline-block no-underline hover:text-black" href="login.html">
             <svg
               class="fill-current hover:text-black"
               xmlns="http://www.w3.org/2000/svg"
@@ -413,9 +413,8 @@
 
         <!-- NEW: Dynamic Home Product Container -->
         <div id="home-product-container" class="w-full flex flex-wrap">
-            <!-- JavaScript will inject the 8 featured products here -->
+          <!-- JavaScript will inject the 8 featured products here -->
         </div>
-
       </div>
     </section>
 
@@ -528,37 +527,38 @@
 
     <!-- 1. The Home Page Dynamic Render Script -->
     <script>
-        // We need a local variable to hold the data so cart.js can access it
-        let globalCatalog = [];
+      // We need a local variable to hold the data so cart.js can access it
+      let globalCatalog = [];
 
-        async function loadFeaturedProducts() {
-            const container = document.getElementById("home-product-container");
-            try {
-                container.innerHTML = '<p class="w-full text-center py-10">Loading featured products...</p>';
-                const response = await fetch("data/products.json");
+      async function loadFeaturedProducts() {
+        const container = document.getElementById("home-product-container");
+        try {
+          container.innerHTML =
+            '<p class="w-full text-center py-10">Loading featured products...</p>';
+          const response = await fetch("data/products.json");
 
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
 
-                globalCatalog = await response.json();
-                
-                // BUSINESS LOGIC: Limit to exactly 8 products
-                const featuredProducts = globalCatalog.slice(0, 8);
-                
-                renderHomeUI(featuredProducts);
+          globalCatalog = await response.json();
 
-            } catch (error) {
-                console.error("Fetch Failed:", error);
-                container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products.</div>`;
-            }
+          // BUSINESS LOGIC: Limit to exactly 8 products
+          const featuredProducts = globalCatalog.slice(0, 8);
+
+          renderHomeUI(featuredProducts);
+        } catch (error) {
+          console.error("Fetch Failed:", error);
+          container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products.</div>`;
         }
+      }
 
-        function renderHomeUI(products) {
-            const container = document.getElementById("home-product-container");
-            container.innerHTML = "";
+      function renderHomeUI(products) {
+        const container = document.getElementById("home-product-container");
+        container.innerHTML = "";
 
-            products.forEach((product) => {
-                // UI UPDATE: Using sm:w-1/2 and lg:w-1/4 to create a strict 4-column layout on desktop
-                const productHTML = `
+        products.forEach((product) => {
+          // UI UPDATE: Using sm:w-1/2 and lg:w-1/4 to create a strict 4-column layout on desktop
+          const productHTML = `
                 <div class="w-full sm:w-1/2 lg:w-1/4 p-6 flex flex-col" data-id="${product.id}">
                     <a href="shop.html">
                         <img class="hover:grow hover:shadow-lg h-64 w-full object-cover" src="${product.image}" alt="${product.title}">
@@ -575,12 +575,12 @@
                     </a>
                 </div>
                 `;
-                container.insertAdjacentHTML("beforeend", productHTML);
-            });
-        }
+          container.insertAdjacentHTML("beforeend", productHTML);
+        });
+      }
 
-        // Trigger the load when the page is ready
-        document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
+      // Trigger the load when the page is ready
+      document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
     </script>
 
     <!-- 2. The Cart Brain -->

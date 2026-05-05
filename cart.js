@@ -110,14 +110,14 @@ function updateCartUI() {
                     </div>
                     <div class="flex items-center gap-4">
                         <p class="text-gray-800 font-semibold">£${itemTotal.toFixed(2)}</p>
-                        
+
                         <!-- Quantity Controls -->
                         <div class="flex items-center border border-gray-300 rounded bg-white">
                             <button onclick="changeQuantity(${index}, -1)" class="px-3 py-1 text-gray-600 hover:bg-gray-200 transition">-</button>
                             <span class="px-3 py-1 text-gray-800 font-semibold border-l border-r border-gray-300">${item.quantity}</span>
                             <button onclick="changeQuantity(${index}, 1)" class="px-3 py-1 text-gray-600 hover:bg-gray-200 transition">+</button>
                         </div>
-                        
+
                         <!-- Remove Item Button -->
                         <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

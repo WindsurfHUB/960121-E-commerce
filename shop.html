@@ -322,21 +322,22 @@
       async function requestProducts(category = "All") {
         const container = document.getElementById("product-container");
         try {
-          container.innerHTML = '<p class="w-full text-center py-10">Loading catalog...</p>';
+          container.innerHTML =
+            '<p class="w-full text-center py-10">Loading catalog...</p>';
 
           // Builds the URL with the query parameter if a category is selected
           let url = "http://localhost:8888/api/products";
           if (category !== "All") {
-              url += `?category=${category}`; 
+            url += `?category=${category}`;
           }
 
           const response = await fetch(url);
-          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
 
           // Receives the Response Package
           globalCatalog = await response.json();
           renderUI(globalCatalog);
-          
         } catch (error) {
           console.error("Fetch Failed:", error);
           container.innerHTML = `<div class="w-full text-center text-red-500 py-10">Failed to load products. Ensure backend is running!</div>`;
@@ -350,14 +351,16 @@
 
         // TRIGGER: User selects a category. Browser requests new data from server.
         categorySelect.addEventListener("change", (e) => {
-            requestProducts(e.target.value); 
+          requestProducts(e.target.value);
         });
 
         // Local search filter
         searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            const filtered = globalCatalog.filter(p => p.title.toLowerCase().includes(searchTerm));
-            renderUI(filtered);
+          const searchTerm = e.target.value.toLowerCase().trim();
+          const filtered = globalCatalog.filter((p) =>
+            p.title.toLowerCase().includes(searchTerm),
+          );
+          renderUI(filtered);
         });
       }
 
@@ -367,8 +370,9 @@
         container.innerHTML = "";
 
         if (products.length === 0) {
-            container.innerHTML = '<div class="w-full text-center py-20"><h3 class="text-xl text-gray-700 font-bold">No results found</h3></div>';
-            return;
+          container.innerHTML =
+            '<div class="w-full text-center py-20"><h3 class="text-xl text-gray-700 font-bold">No results found</h3></div>';
+          return;
         }
 
         products.forEach((product) => {
@@ -392,8 +396,8 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-          initializeInteractions();
-          requestProducts(); 
+        initializeInteractions();
+        requestProducts();
       });
     </script>
     <script src="cart.js"></script>
