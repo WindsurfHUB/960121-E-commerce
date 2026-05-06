@@ -1,28 +1,34 @@
-const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-// Helper function to read the auth database
-const getAuthUsers = () => {
-    // This path travels up 3 folders from 'services' to reach the root 'data' folder
-    // __dirname is my-backend/src/services
-    // ../../../ travels up to the nordic-1.0.0 root folder
-    const filePath = path.join(__dirname, '../../../data/auth_user.json');
-    
-    try {
-        const rawData = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(rawData);
-    } catch (error) {
-        console.error("Error reading database:", error.message);
-        return []; // Return empty array if file fails to load
-    }
-};
+// Point to the new SQLite database
+const dbPath = path.join(__dirname, '../../../data/nordic_shop.db');
 
-// The function our auth.js route is looking for
-const findUserByEmail = async (email) => {
-    const users = getAuthUsers();
-    // auth_user.json uses "username" for the email field
-    const user = users.find(u => u.username === email); 
-    return user; 
+const findUserByEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        // Open the database in Read-Only mode for security
+        const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
+            if (err) {
+                console.error("Database connection error:", err.message);
+                return reject(err);
+            }
+        });
+
+        // The Relational Logic: Find the row where the username matches the email
+        const query = `SELECT * FROM Users WHERE username = ?`;
+        
+        // We use the [email] array here to prevent SQL Injection attacks!
+        db.get(query, [email], (err, row) => {
+            db.close(); // Always close the connection to free up memory
+            
+            if (err) {
+                return reject(err);
+            }
+            
+            // 'row' will contain the user object, or 'undefined' if no match is found
+            resolve(row); 
+        });
+    });
 };
 
 module.exports = {
