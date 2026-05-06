@@ -535,7 +535,7 @@
         try {
           container.innerHTML =
             '<p class="w-full text-center py-10">Loading featured products...</p>';
-          const response = await fetch("data/products.json");
+         const response = await fetch("http://localhost:8888/api/products");
 
           if (!response.ok)
             throw new Error(`HTTP error! Status: ${response.status}`);
