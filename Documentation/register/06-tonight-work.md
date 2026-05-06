@@ -30,7 +30,8 @@ flowchart TD
     
     BackErr --> UIUpdate[Frontend displays server message]
     Success --> Redirect[Frontend redirects to Login]
-
+```
+```
 sequenceDiagram
     actor User
     participant Frontend (register.html)
