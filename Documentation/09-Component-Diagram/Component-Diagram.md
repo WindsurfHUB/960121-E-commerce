@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     subgraph Monolith [Current Monolithic Backend - server.js]
         direction LR
@@ -25,3 +26,4 @@ flowchart LR
         CC -.->|Monolithic Call\nto be replaced by fetch| US
         CC -.->|Monolithic Call\nto be replaced by fetch| PS
     end
+```
