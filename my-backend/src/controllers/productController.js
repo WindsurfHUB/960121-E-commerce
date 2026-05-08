@@ -1,13 +1,9 @@
 const productService = require("../services/productService");
 
-// 1. ADD 'async' HERE
 const getProducts = async (req, res) => {
   try {
     const category = req.query.category;
-
-    // 2. ADD 'await' HERE to pause the server until SQLite finishes searching
     const products = await productService.getAllProducts(category);
-
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -15,6 +11,21 @@ const getProducts = async (req, res) => {
   }
 };
 
+// --- ADD THIS NEW FUNCTION ---
+const getProductById = async (req, res) => {
+  try {
+    const product = await productService.getProductById(req.params.id);
+    if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getProducts,
+  getProductById // <-- ADD THIS EXPORT
 };

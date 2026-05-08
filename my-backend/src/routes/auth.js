@@ -84,4 +84,26 @@ router.post('/api/register', async (req, res) => {
     }
 });
 
+// Add this to auth.js (Identity Microservice Simulation)
+router.get('/api/auth/verify', async (req, res) => {
+    try {
+        // 1. Extract the token from the Bearer header
+        const authHeader = req.headers.authorization;
+        if (!authHeader) return res.status(401).json({ error: "No token provided" });
+
+        const token = authHeader.split(' ')[1];
+        
+        // 2. Verify the token (using your JWT secret)
+        const jwt = require('jsonwebtoken');
+        const decoded = jwt.verify(token, 'YOUR_SECRET_KEY'); // Ensure this matches your actual secret
+
+        // 3. (Optional) Fetch fresh user data from the DB if needed
+        // const user = await userService.findById(decoded.userId);
+
+        res.status(200).json({ valid: true, user: decoded });
+    } catch (error) {
+        res.status(401).json({ error: "Invalid token" });
+    }
+});
+
 module.exports = router;
