@@ -1,16 +1,17 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors"); // Imports CORS to allow frontend requests
 const app = express();
 
 const productRoutes = require("./src/routes/products");
 const authRoutes = require('./src/routes/auth');
-const checkoutRoutes = require('./src/routes/checkout'); // Import the new checkout route
-
-const PORT = 8888;
+const checkoutRoutes = require('./src/routes/checkout');
+ // Import the new checkout route
+const PORT = process.env.PORT || 8888;
 
 // Middleware
 app.use(cors()); // Enables Cross-Origin Resource Sharing
-app.use(express.json()); // Parses incoming JSON requests
+app.use(express.json({ limit: '10kb' })); // Parses incoming JSON requests
 
 // Mounts the modular routes
 app.use("/api/products", productRoutes);

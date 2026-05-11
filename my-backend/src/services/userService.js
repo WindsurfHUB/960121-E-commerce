@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // Point to the new SQLite database
-const dbPath = path.join(__dirname, '../../../data/nordic_shop.db');
+const dbPath = path.resolve(__dirname, '../../', process.env.DB_PATH);
 
 const findUserByEmail = (email) => {
     return new Promise((resolve, reject) => {

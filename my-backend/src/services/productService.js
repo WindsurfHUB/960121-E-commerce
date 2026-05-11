@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // Point to the SQLite database
-const dbPath = path.join(__dirname, '../../../data/nordic_shop.db');
+const dbPath = path.resolve(__dirname, '../../', process.env.DB_PATH);
 
 // Replace ONLY the getAllProducts function in productService.js
 const getAllProducts = (category) => {

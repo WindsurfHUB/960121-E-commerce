@@ -9,7 +9,7 @@ const router = express.Router();
 const { findUserByEmail } = require('../services/userService');
 
 // Point directly to the database file
-const dbPath = path.join(__dirname, '../../../data/nordic_shop.db');
+
 
 // --- THE LOGIN GATEKEEPER ---
 router.post('/api/login', async (req, res) => {
@@ -29,7 +29,8 @@ router.post('/api/login', async (req, res) => {
         }
 
         // 3. Sign the JWT containing the user's ID
-        const secretKey = process.env.JWT_SECRET || 'your_temporary_secret_key';
+        const secretKey = process.env.JWT_SECRET;
+        if (!secretKey) throw new Error("FATAL ERROR: JWT_SECRET is not defined.");
         const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' });
 
         // 4. Return the 200 status and the token
